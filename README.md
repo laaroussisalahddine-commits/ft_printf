@@ -127,4 +127,4 @@ To validate the project, compare the output **and return values** of `ft_printf`
 
 ### AI usage
 
-AI assistance was used to help explain C concepts, suggest boundary cases, and prepare test programs that compare `ft_printf` with the standard `printf`. It also helped organize and draft this README. The implementation itself should be reviewed and understood by the author; this section should be adjusted to reflect any further AI use in the final submission.
+AI assistance was used to help explain printf concepts, suggest boundary cases, and prepare test programs that compare `ft_printf` with the standard `printf`. It also helped this README.
