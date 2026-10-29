@@ -6,7 +6,7 @@
 /*   By: slaarous <slaarous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/28 17:25:52 by slaarous          #+#    #+#             */
-/*   Updated: 2026/10/29 16:33:54 by slaarous         ###   ########.fr       */
+/*   Updated: 2026/10/29 21:22:09 by slaarous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ int	printptr(void *ptr)
 	count = lennumhex(a);
 	if (!ptr)
 	{
-		printstring("0x0");
-		return (3);
+		printstring("(nil)");
+		return (5);
 	}
 	count += printstring("0x");
 	printhex(a, 0);

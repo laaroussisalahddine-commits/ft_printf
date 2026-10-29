@@ -1,417 +1,130 @@
-# ft_printf — Deep Mastery Roadmap (42 / 1337)
+*This project has been created as part of the 42 curriculum by slaarous*
 
-> **Goal:** Understand, build, test, debug, and defend `ft_printf` independently — not just pass a tester.
+# ft_printf
 
-This is a **theory + practice + evaluation** roadmap for a student moving from **Libft** to **ft_printf** at 42 Network / 1337. It develops C fundamentals, variadic functions, format parsing, printing algorithms, debugging, build systems, and peer-evaluation skills.
+## Description
 
-**Important:** Always use the `ft_printf` subject available in your intra as the source of truth for allowed functions, bonus requirements, file names, and expected behavior. The accompanying PDF used while preparing this roadmap was a **Libft** subject, not the `ft_printf` subject.
+**ft_printf** is a C project from the 42 curriculum. Its goal is to recreate the essential behavior of the standard `printf()` function, using variadic arguments and writing formatted output to standard output.
 
-## How to use this roadmap
-
-For **every topic**:
-
-1. **Theory:** Explain the concept from first principles.
-2. **Visualize:** Draw the relevant memory layout, execution trace, or algorithm.
-3. **Predict:** Write the expected output and return value *before* running code.
-4. **Practice:** Implement a small standalone exercise without copying a full `ft_printf` solution.
-5. **Test:** Include normal, boundary, and failure cases.
-6. **Debug:** Deliberately break an example and explain the cause.
-7. **Defend:** Answer evaluation-style questions and reimplement from memory.
-
-**Progress rule:** A level is complete only when you can explain *why* your code works, not merely when tests pass.
-
-## Progress tracker
-
-- [ ] Phase 0 — C foundations and Libft audit
-- [ ] Phase 1 — `printf` and format strings
-- [ ] Phase 2 — Variadic functions
-- [ ] Phase 3 — `write()`, bytes and errors
-- [ ] Phase 4 — Number representation and conversions
-- [ ] Phase 5 — Pointers and memory representation
-- [ ] Phase 6 — Independent printers
-- [ ] Phase 7 — Parser, dispatcher, architecture
-- [ ] Phase 8 — Undefined behavior and edge cases
-- [ ] Phase 9 — Makefile, compilation and linking
-- [ ] Phase 10 — Moulinette-style testing
-- [ ] Phase 11 — Bonus formatting (if applicable)
-- [ ] Phase 12 — 42 defense simulation
-
----
-
-## Phase 0 — C Foundations & Libft Audit
-
-**Objective:** Repair gaps from Libft before starting `ft_printf`.
-
-### Theory
-
-- Stack, heap, `.rodata`, `.data`, `.bss`.
-- Pointers vs addresses vs dereferenced values.
-- `char`, `int`, `unsigned int`, `size_t`, `ssize_t`.
-- Signed/unsigned conversions, overflow, integer promotions.
-- `const`, `static`, scope and lifetime.
-- `write()`, file descriptors and return values.
-- Stack frames, function calls and recursion.
-- Preprocessing, compilation, assembly, linking, headers, static libraries.
-
-### Practice
-
-- [ ] Predict 15 C outputs without running them.
-- [ ] Write signed and unsigned number printers.
-- [ ] Print `INT_MIN` without signed overflow.
-- [ ] Trace variable addresses and lifetimes.
-- [ ] Build a small `.a` file manually using `ar`.
-- [ ] Debug a deliberately broken C program.
-
-**Evaluation gate:** Explain why `-INT_MIN` is problematic, why a pointer is not an ordinary integer, and the difference between compilation and linking.
-
-## Phase 1 — Understanding `printf` & Format Strings
-
-**Objective:** Understand the job of `printf` before implementing it.
-
-### Theory
-
-- Output bytes vs the return value.
-- Format strings, normal characters and `%`.
-- Conversion specifiers vs their arguments.
-- Parsing, tokens and simple state machines.
-- Interpretation of `printf("A%dB", 42)`.
-
-### Practice
-
-- [ ] Write a character-by-character string scanner.
-- [ ] Detect `%`, `%%` and supported conversion characters.
-- [ ] Calculate printed byte counts by hand.
-- [ ] Trace format indices on paper.
-- [ ] Classify supported, unsupported and incomplete formats.
-
-**Evaluation gate:** Explain the parser with a diagram without reading the source code.
-
-## Phase 2 — Variadic Functions: Deep Dive
-
-**Objective:** Understand `...` and `<stdarg.h>` beyond memorizing syntax.
-
-### Theory
-
-- Fixed arguments vs variadic arguments.
-- `va_list`, `va_start`, `va_arg`, `va_end`, `va_copy`.
-- Default argument promotions (`char`/`short` to `int` in typical cases; `float` to `double`).
-- Why `va_arg` must retrieve the expected promoted type.
-- What a compiler does and does not know about variadic argument types.
-- Register/stack passing conventions and platform-dependent ABI internals.
-- Mismatched retrieval types and undefined behavior.
-
-### Practice
-
-- [ ] Implement `sum(int count, ...)`.
-- [ ] Read a documented sequence of `int` and `char *` arguments.
-- [ ] Demonstrate proper `va_copy` use.
-- [ ] Examine assembly for a small variadic function (optional advanced work).
-- [ ] Trace exactly which `va_arg` is called at each conversion.
-
-**Evaluation gate:** Explain why `%c` requires `va_arg(args, int)` rather than `char`.
-
-## Phase 3 — `write()`, Bytes & Error Handling
-
-**Objective:** Know what happens when output is written.
-
-### Theory
-
-- File descriptors 0, 1 and 2.
-- `write(fd, buffer, count)`.
-- Visible characters vs actual bytes.
-- Embedded `\0`, newline and escape sequences.
-- Partial writes, interrupted writes and errors.
-- `ssize_t`, `-1`, `errno`, `EBADF`, `EPIPE`.
-
-### Practice
-
-- [ ] Print a NUL byte and inspect output as bytes.
-- [ ] Redirect stdout to a file and inspect its contents.
-- [ ] Write a byte-output helper and reason about its return value.
-- [ ] Test an invalid descriptor.
-- [ ] Simulate a write failure with a test harness.
-
-**Evaluation gate:** Explain why `ft_printf("%c", '\0')` prints one byte even though it displays nothing visibly.
-
-## Phase 4 — Number Representation & Conversion
-
-**Objective:** Convert numerical values to textual representations correctly.
-
-### Theory
-
-- Binary, decimal and hexadecimal.
-- Base conversion with division and remainder.
-- ASCII digit mapping.
-- Signed vs unsigned arithmetic.
-- Two's complement (common representation) and integer limits.
-- `INT_MIN`, `INT_MAX`, `UINT_MAX`.
-- `uintptr_t` and `<stdint.h>`.
-- Recursive vs iterative digit printers.
-
-### Practice
-
-- [ ] Implement `print_base_unsigned(n, base)`.
-- [ ] Implement signed decimal printing.
-- [ ] Implement lower- and uppercase hexadecimal.
-- [ ] Diagram recursive calls and their output order.
-- [ ] Convert several values manually between bases.
-- [ ] Verify output bytes and character counts.
-
-**Evaluation gate:** Explain why decimal 255 becomes hexadecimal `ff`.
-
-## Phase 5 — Pointers & Memory Representation
-
-**Objective:** Understand `%p` from address to formatted output.
-
-### Theory
-
-- Memory addresses, pointer types and `void *`.
-- `sizeof(void *)` and integer width.
-- Stack vs heap addresses.
-- Address Space Layout Randomization (ASLR).
-- Pointer-to-integer conversions when a suitable integer type exists.
-- Why `%p` differs from `%x`.
-- NULL-pointer formatting can vary by environment.
-
-### Practice
-
-- [ ] Print an address of a local variable.
-- [ ] Print an address returned by `malloc`.
-- [ ] Compare `%p` results with the target libc.
-- [ ] Test a NULL pointer.
-- [ ] Inspect addresses with a debugger.
-- [ ] Experiment with `sizeof(void *)`.
-
-**Evaluation gate:** Explain why `%p` retrieves a `void *` and why `unsigned int` may not hold a pointer value.
-
-## Phase 6 — Independent Printers
-
-**Objective:** Build one independently testable printer per required output category.
-
-| Conversion | Printer responsibility | Important cases |
-|---|---|---|
-| `%c` | Character byte | `\0`, argument promotion |
-| `%s` | String bytes | Empty string, NULL behavior |
-| `%d`, `%i` | Signed decimal | Negative values, `INT_MIN` |
-| `%u` | Unsigned decimal | Zero, `UINT_MAX` |
-| `%x`, `%X` | Hexadecimal | Zero, letter case |
-| `%p` | Pointer | Address width, NULL |
-| `%%` | Literal `%` | Consumes no variadic argument |
-
-For **each** category:
-
-- [ ] Explain the algorithm in your own words.
-- [ ] Predict output and return values.
-- [ ] Implement from scratch.
-- [ ] Test boundaries and special cases.
-- [ ] Introduce a bug and diagnose it.
-- [ ] Explain each line of your code.
-
-**Evaluation gate:** Recreate each printer from a blank file and justify design decisions.
-
-## Phase 7 — Parser, Dispatcher & Architecture
-
-**Objective:** Combine components using a clear division of responsibilities.
-
-```text
-ft_printf(format, ...)
-        |
-        v
-     parser
-     /    \
-normal    conversion
-  |          |
-write     dispatcher
-  |          |
-  |       va_arg + printer
-  \          /
-   \        /
-    byte count / error state
-             |
-             v
-          return
-```
-
-### Theory
-
-- Separation of concerns.
-- Parsing vs dispatching vs printing.
-- Single-responsibility helpers.
-- Passing `va_list` safely between functions.
-- Error propagation and byte-count accumulation.
-- Format indices and off-by-one errors.
-- Extensible architecture.
-
-### Practice
-
-- [ ] Implement plain-text output first.
-- [ ] Add one conversion at a time.
-- [ ] Create a conversion dispatcher.
-- [ ] Integrate all required conversions.
-- [ ] Trace the parser, arguments and return count.
-- [ ] Refactor without breaking previous behavior.
-
-**Evaluation gate:** Explain the call flow and modify one printer without rewriting the parser.
-
-## Phase 8 — Undefined Behavior & Edge Cases
-
-**Objective:** Distinguish bugs, undefined behavior and implementation-specific behavior.
-
-### Topics
-
-- NULL format pointers.
-- Unsupported conversion characters and trailing `%`.
-- Wrong variadic argument types or missing arguments.
-- Invalid pointers.
-- Empty strings and embedded NUL bytes.
-- Zero and integer boundaries.
-- Return-value overflow.
-- Differences between libc environments.
-
-### Practice
-
-- [ ] Build a boundary-value suite.
-- [ ] Label tests as defined, undefined or implementation-specific.
-- [ ] Debug crashes using GDB or LLDB.
-- [ ] Try AddressSanitizer and UndefinedBehaviorSanitizer.
-- [ ] Use Valgrind if available.
-
-**Evaluation gate:** Explain why behavior observed for an undefined case does **not** establish a portable requirement.
-
-## Phase 9 — Makefile, Header, Compilation & Linking
-
-**Objective:** Understand and defend the entire build system.
-
-### Theory
-
-- `.c` → `.o` → `.a` → executable.
-- Compilation vs linking.
-- Archives and `ar rcs`.
-- Symbol tables and `nm`.
-- Object inspection using `file` and `objdump`.
-- Header guards.
-- Build dependencies.
-- Make automatic variables: `$@`, `$<`, `$^`.
-- Incremental builds and unnecessary relinking.
-
-### Practice
-
-- [ ] Build your archive manually.
-- [ ] Write a Makefile respecting your official subject.
-- [ ] Delete one `.o` and predict the rebuild.
-- [ ] Change one `.c` and observe what rebuilds.
-- [ ] Deliberately introduce undefined references.
-- [ ] Debug a missing symbol.
-- [ ] Verify `make`, `clean`, `fclean` and `re`.
-
-**Evaluation gate:** Explain every important Makefile line and the difference between compilation and symbol resolution.
-
-## Phase 10 — Test Like Moulinette
-
-**Objective:** Own your test suite rather than trusting only third-party testers.
-
-| Test family | What it proves |
-|---|---|
-| Unit tests | Each printer works alone |
-| Integration tests | Mixed conversions work together |
-| Differential tests | Defined cases match libc output and returns |
-| Boundary tests | Integer limits, zero, NULL, NUL |
-| Failure tests | Error handling and propagation |
-| Build tests | Makefile, Norm, symbols |
-| Regression tests | Old features still work after changes |
-
-### Practice
-
-- [ ] Create a personal `test_printf.c`.
-- [ ] Capture stdout as **bytes**, not just displayed text.
-- [ ] Compare stdout and return values for defined cases.
-- [ ] Test redirection.
-- [ ] Automate test execution in a shell script.
-- [ ] Maintain a bug log containing root cause, fix and regression test.
-
-**Evaluation gate:** Diagnose a failed test without immediately consulting a complete solution.
-
-## Phase 11 — Bonus: Advanced Formatting
-
-> Start only when mandatory behavior is solid. Confirm the exact bonus syntax and requirements from your own subject.
-
-### Theory
-
-- Flags: `-`, `0`, `#`, `+` and space.
-- Field width.
-- Precision (`.`).
-- Padding and alignment.
-- Interaction between signs, prefixes, padding and precision.
-- Parsing conversion metadata into a structure.
-
-### Practice
-
-- [ ] Build an independent flags parser.
-- [ ] Represent conversion options in a `struct`.
-- [ ] Implement padding separately.
-- [ ] Compare supported flag combinations with libc.
-- [ ] Test conflicting or interacting options.
-- [ ] Re-run mandatory regression tests.
-
-**Evaluation gate:** Add or modify a formatting behavior without destabilizing basic conversions.
-
-## Phase 12 — 42 Defense Simulation
-
-**Objective:** Defend the implementation and make small changes independently.
-
-- [ ] Explain each file and function.
-- [ ] Trace `va_list` through a mixed format.
-- [ ] Predict exact output **and** return value.
-- [ ] Identify a bug in an unfamiliar implementation.
-- [ ] Reconstruct a helper after it is removed.
-- [ ] Recognize undefined behavior.
-- [ ] Diagnose a segfault or incorrect return count.
-- [ ] Perform a small modification while preserving other features.
-- [ ] Rebuild essential components from an empty file.
-- [ ] Explain Makefile, headers, linking and testing decisions.
-
-**Final pass condition:** Correct behavior, clear explanations, and independent debugging/modification.
-
----
-
-## Starter diagnostic — Question 1
-
-Predict the following **before** compiling:
+The project builds a static library, `libftprintf.a`, which provides:
 
 ```c
-#include <stdio.h>
+int ft_printf(const char *format, ...);
+```
 
-void test(char c)
-{
-    printf("%d\n", c);
-}
+The function returns the number of characters written, or `-1` if an output error is detected. The implementation focuses on the required conversions without implementing the full set of optional formatting flags, field widths, or precision supported by the standard `printf()`.
+
+### Supported conversions
+
+| Specifier | Meaning |
+| --- | --- |
+| `%c` | Print a character |
+| `%s` | Print a string |
+| `%p` | Print a pointer address in hexadecimal |
+| `%d` | Print a signed decimal integer |
+| `%i` | Print a signed decimal integer |
+| `%u` | Print an unsigned decimal integer |
+| `%x` | Print an unsigned integer in lowercase hexadecimal |
+| `%X` | Print an unsigned integer in uppercase hexadecimal |
+| `%%` | Print a literal percent sign |
+
+## Algorithm and Data Structures
+
+### 1. Reading variadic arguments
+
+Unlike a regular function, `ft_printf` accepts a variable number of arguments. It uses the `<stdarg.h>` interface:
+
+- `va_start` initializes access to the unnamed arguments.
+- `va_arg` retrieves the next argument with the appropriate type.
+- `va_end` finishes processing the argument list.
+
+The format string determines which type to retrieve. For example, `%d` reads an `int`, `%u` reads an `unsigned int`, and `%p` reads a `void *`.
+
+### 2. Parsing the format string
+
+The algorithm scans the format string from left to right. Ordinary characters are written directly. When a `%` is encountered, the next character is interpreted as a conversion specifier and handled by the corresponding output routine. After that conversion, scanning continues until the end of the string.
+
+This single-pass approach is appropriate because the required format is processed sequentially, without needing a syntax tree or an additional copy of the format string.
+
+### 3. Converting numerical values
+
+Decimal conversions use base 10, and hexadecimal conversions use base 16. The general method extracts digits using division and remainder:
+
+- Remainder by the base gives the next digit.
+- Division by the base removes that digit.
+- Digits must be emitted in reverse order of extraction, for example by recursive output or a small temporary buffer.
+
+Signed decimal values require extra care for negative numbers, especially `INT_MIN`, whose positive magnitude cannot be represented in a signed `int`. An adequately wide signed type can safely hold that magnitude before conversion.
+
+For hexadecimal output, a digit lookup string (`0123456789abcdef` or `0123456789ABCDEF`) maps remainders to characters. A pointer is treated as an address value and represented in hexadecimal, subject to the platform's expected `%p` behavior.
+
+### 4. Tracking the return value
+
+Each output routine contributes the number of characters it writes. `ft_printf` accumulates these counts so its return value matches the length of the generated output, including spaces, signs, prefixes, and literal percent signs. Errors from `write` should be propagated rather than counted as successful output.
+
+### 5. Data structure choice and justification
+
+The program does not require a complex data structure. Its main state consists of:
+
+- A `va_list` to access the variable arguments in sequence.
+- A pointer to the format string and an index to scan it.
+- An integer counter for the number of characters written.
+- Small temporary character buffers or constant digit strings for number conversion, if used by the implementation.
+
+This design is simple, memory-efficient, and suited to sequential formatted output. It avoids dynamically allocated lists or arrays because the output can be written as it is processed.
+
+## Instructions
+
+### Compilation
+
+From the project root, run:
+
+```sh
+make
+```
+
+This should build the static library `libftprintf.a`. Other common Makefile targets are:
+
+```sh
+make clean   # Remove object files
+make fclean  # Remove object files and the library
+make re      # Rebuild from scratch
+```
+
+### Usage
+
+Create a separate test file, for example `main.c`:
+
+```c
+#include "ft_printf.h"
 
 int main(void)
 {
-    char x = 'A';
-    test(x);
+    int count;
+
+    count = ft_printf("Hello %s! Value: %d, hex: %x\n", "42", -42, 255);
+    ft_printf("Printed %d characters in the first call.\n", count);
     return (0);
 }
 ```
 
-**Questions:**
+Compile and run it:
 
-1. What is printed?
-2. Why does `%d` print that value instead of `A`?
-3. Does `x` permanently change from `char` to `int`, or is a conversion involved when calling the function / passing an argument to `printf`?
+```sh
+cc -Wall -Wextra -Werror main.c libftprintf.a -o demo
+./demo
+```
 
-## Reference material
+To validate the project, compare the output **and return values** of `ft_printf` against the system `printf` for each required conversion, including boundary cases such as zero, `INT_MIN`, `UINT_MAX`, empty strings, and null pointers. Note that the representation of a null pointer with `%p` is implementation-dependent (for example, glibc commonly prints `(nil)`).
 
-- Your **official** `ft_printf` subject on the 42 intranet.
-- `man 3 printf`
-- `man 3 stdarg`
-- `man 2 write`
-- `man 3 malloc`
-- `man 3 free`
-- Your own completed Libft and its tests.
+## Resources
 
-## Learning agreement
+- [`printf(3)` — Linux manual page](https://man7.org/linux/man-pages/man3/printf.3.html): standard formatting behavior and conversion specifications.
+- [`stdarg(3)` — Linux manual page](https://man7.org/linux/man-pages/man3/stdarg.3.html): working with variable-length argument lists.
+- [`write(2)` — Linux manual page](https://man7.org/linux/man-pages/man2/write.2.html): writing bytes to file descriptors and handling errors.
+- [cppreference — `printf` family](https://en.cppreference.com/w/c/io/fprintf): format specifiers, conversions, and return values.
+- The **ft_printf project subject** supplied by 42: mandatory project scope and constraints.
 
-AI, documentation and peer discussions can help explain concepts, propose tests and review reasoning. The algorithms, code, debugging decisions, and evaluation explanations should be developed independently.
+### AI usage
 
-**Final rule:** Don't move to the next phase just because the code works. Move forward when you can clearly explain **why** it works.
+AI assistance was used to help explain C concepts, suggest boundary cases, and prepare test programs that compare `ft_printf` with the standard `printf`. It also helped organize and draft this README. The implementation itself should be reviewed and understood by the author; this section should be adjusted to reflect any further AI use in the final submission.

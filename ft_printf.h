@@ -6,7 +6,7 @@
 /*   By: slaarous <slaarous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/28 17:26:04 by slaarous          #+#    #+#             */
-/*   Updated: 2026/10/29 16:31:45 by slaarous         ###   ########.fr       */
+/*   Updated: 2026/10/29 19:51:24 by slaarous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ int				printhex(unsigned long n, int upper);
 int				printptr(void *ptr);
 
 /* count number */
-unsigned int	lennumhex(unsigned int n);
+unsigned int	lennumhex(unsigned long n);
 int				lenstring(char *s);
-int				lennumber(int n);
+int				lennumber(long n);
 
 /* main function */
 int				ft_printf(const char *str, ...);
