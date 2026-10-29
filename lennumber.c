@@ -6,13 +6,13 @@
 /*   By: slaarous <slaarous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/28 17:26:08 by slaarous          #+#    #+#             */
-/*   Updated: 2026/10/28 17:36:27 by slaarous         ###   ########.fr       */
+/*   Updated: 2026/10/29 16:24:28 by slaarous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	lennumber(long n)
+int	lennumber(int n)
 {
 	int	count;
 

@@ -6,24 +6,31 @@
 /*   By: slaarous <slaarous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/28 17:26:38 by slaarous          #+#    #+#             */
-/*   Updated: 2026/10/28 17:36:34 by slaarous         ###   ########.fr       */
+/*   Updated: 2026/10/29 16:33:12 by slaarous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	printdecimal(long x)
+void	ft_putlong(long n)
 {
-	int	count;
+	if (n >= 10)
+		ft_putlong(n / 10);
+	printchar((n % 10) + '0');
+}
 
-	count = lennumber(x);
-	if (x < 0)
+int	printdecimal(int x)
+{
+	long	n;
+	int		count;
+
+	n = x;
+	count = lennumber(n);
+	if (n < 0)
 	{
 		printchar('-');
-		x = -x;
+		n = -n;
 	}
-	if (x >= 10)
-		printdecimal(x / 10);
-	printchar((x % 10) + '0');
+	ft_putlong(n);
 	return (count);
 }

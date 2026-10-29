@@ -6,7 +6,7 @@
 /*   By: slaarous <slaarous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/28 17:26:50 by slaarous          #+#    #+#             */
-/*   Updated: 2026/10/28 21:49:24 by slaarous         ###   ########.fr       */
+/*   Updated: 2026/10/29 16:11:23 by slaarous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ int	printstring(char*s)
 
 	if (!s)
 	{
-		write (1, "(nil)\n", 6);
-		return (0);
+		write (1, "(null)\n", 6);
+		return (6);
 	}
 	i = 0;
 	while (s[i])
