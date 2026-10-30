@@ -32,10 +32,12 @@ void	print_upper_hex(unsigned long n)
 	printchar(hex[n % 16]);
 }
 
-int	printhex(unsigned long n, int upper)
+int	printhex(unsigned int x, int upper)
 {
-	int	count;
+	int				count;
+	unsigned long	n;
 
+	n = x;
 	count = lennumhex(n);
 	if (upper == 1)
 		print_upper_hex(n);

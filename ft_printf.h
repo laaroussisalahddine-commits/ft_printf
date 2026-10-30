@@ -22,7 +22,7 @@ int				printdecimal(int x);
 int				printchar(char c);
 int				printstring(char *s);
 int				printuns(long x);
-int				printhex(unsigned long n, int upper);
+int				printhex(unsigned int n, int upper);
 int				printptr(void *ptr);
 
 /* count number */

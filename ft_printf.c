@@ -24,9 +24,9 @@ int	format(char str, va_list args)
 	else if (str == 'd' || str == 'i' )
 		count += printdecimal(va_arg(args, int));
 	else if (str == 'x')
-		count += printhex(va_arg(args, unsigned long), 0);
+		count += printhex(va_arg(args, unsigned int), 0);
 	else if (str == 'X')
-		count += printhex(va_arg(args, unsigned long), 1);
+		count += printhex(va_arg(args, unsigned int), 1);
 	else if (str == 'p')
 		count += printptr(va_arg(args, void *));
 	else if (str == 'u')
