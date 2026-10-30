@@ -6,11 +6,23 @@
 /*   By: slaarous <slaarous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/28 18:42:17 by slaarous          #+#    #+#             */
-/*   Updated: 2026/10/29 21:15:52 by slaarous         ###   ########.fr       */
+/*   Updated: 2026/10/30 22:42:16 by slaarous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+int	flags_hash(char str, va_list args)
+{
+	int	count;
+
+	count = 0;
+	if (str == 'x')
+		count += print_hash(va_arg(args, unsigned int), 0);
+	else if (str == 'X')
+		count += print_hash(va_arg(args, unsigned int), 1);	
+	return (count);
+}
 
 int	format(char str, va_list args)
 {
@@ -49,8 +61,16 @@ int	ft_printf(const char *str, ...)
 	{
 		if (str[i] == '%')
 		{
-			count += format (str[i + 1], args);
-			i += 2;
+			if(str[i + 1] == '#')
+			{
+				count += flags_hash(str[i + 2], args);
+				i += 3;
+			}
+			else
+			{
+				count += format (str[i + 1], args);
+				i += 2;
+			}
 		}
 		else
 		{
