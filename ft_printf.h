@@ -6,7 +6,7 @@
 /*   By: slaarous <slaarous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/28 17:26:04 by slaarous          #+#    #+#             */
-/*   Updated: 2026/10/30 22:29:04 by slaarous         ###   ########.fr       */
+/*   Updated: 2026/11/01 21:39:16 by slaarous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdarg.h>
-# include "libft/libft.h"
 
 /* print format */
 int				printdecimal(int x);
