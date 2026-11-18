@@ -6,16 +6,12 @@
 /*   By: slaarous <slaarous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/28 17:26:34 by slaarous          #+#    #+#             */
-/*   Updated: 2026/11/18 13:06:32 by slaarous         ###   ########.fr       */
+/*   Updated: 2026/11/18 16:05:58 by slaarous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_putc(char c)
-{
-	return (write(1, &c, 1));
-}
 int	printchar(char c)
 {
 	return (write(1, &c, 1));

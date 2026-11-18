@@ -6,7 +6,7 @@
 /*   By: slaarous <slaarous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/28 17:36:06 by slaarous          #+#    #+#             */
-/*   Updated: 2026/11/18 13:15:16 by slaarous         ###   ########.fr       */
+/*   Updated: 2026/11/18 16:10:22 by slaarous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	print_lower_hex(unsigned long n)
 	hex = "0123456789abcdef";
 	if (n >= 16)
 		print_lower_hex(n / 16);
-	ft_putc(hex[n % 16]);
+	printchar(hex[n % 16]);
 }
 
 void	print_upper_hex(unsigned long n)
@@ -29,7 +29,24 @@ void	print_upper_hex(unsigned long n)
 	hex = "0123456789ABCDEF";
 	if (n >= 16)
 		print_upper_hex(n / 16);
-	ft_putc(hex[n % 16]);
+	printchar(hex[n % 16]);
+}
+
+int	print_hash(t_format *fmt, int count, unsigned long n, int upper)
+{
+	if (n == 0)
+		return (printdecimal(fmt, 0));
+	if (upper == 0)
+	{
+		count += printstring("0x");
+		print_lower_hex(n);
+	}
+	else
+	{
+		count += printstring("0X");
+		print_upper_hex(n);
+	}
+	return (count);
 }
 
 int	printhex(t_format *fmt, unsigned int x, int upper)
@@ -39,16 +56,7 @@ int	printhex(t_format *fmt, unsigned int x, int upper)
 	n = x;
 	count = lennumhex(n);
 	if (fmt->hash)
-	{
-		if (n == 0)
-			return (printdecimal(fmt, 0));
-		count += ft_puts("0x");
-		if (upper == 0)
-			print_lower_hex(n);
-		else
-			print_upper_hex(n);
-		return (count);
-	}
+		return (print_hash(fmt, count, n, upper));
 	if (upper == 1)
 		print_upper_hex(n);
 	else if (upper == 0)

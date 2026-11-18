@@ -10,11 +10,7 @@ SRC = lenstring.c lennumber.c lennumhex.c \
 
 OBJ = $(SRC:.c=.o)
 
-.PHONY : all clean fclean re
-
-run : re
-	$(CC) $(FLAGS) main.c libftprintf.a
-	@$(MAKE) --no-print-directory -s clean
+.PHONY : clean
 
 all : $(NAME)
 
