@@ -6,11 +6,15 @@ RM = rm -f
 
 SRC = lenstring.c lennumber.c lennumhex.c \
 	printchar.c printstring.c printdecimal.c  printhex.c \
-	printptr.c printuns.c ft_printf.c print_hash.c \
+	printptr.c printuns.c ft_printf.c utils.c\
 
 OBJ = $(SRC:.c=.o)
 
 .PHONY : all clean fclean re
+
+run : re
+	$(CC) $(FLAGS) main.c libftprintf.a
+	@$(MAKE) --no-print-directory -s clean
 
 all : $(NAME)
 
