@@ -6,13 +6,13 @@
 /*   By: slaarous <slaarous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/28 17:26:38 by slaarous          #+#    #+#             */
-/*   Updated: 2026/11/18 16:18:40 by slaarous         ###   ########.fr       */
+/*   Updated: 2026/11/19 16:43:46 by slaarous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int		ft_putnbr(long n)
+int	ft_putnbr(long n)
 {
 	int	count;
 
@@ -28,7 +28,7 @@ int		ft_putnbr(long n)
 	return (count);
 }
 
-int		handle_flags(t_format *fmt, long n)
+int	handle_flags(t_format *fmt, long n)
 {
 	int		count;
 
@@ -37,14 +37,14 @@ int		handle_flags(t_format *fmt, long n)
 	{
 		if (fmt->spaces && !fmt->plus)
 			count += printchar(' ');
-		if ((fmt->plus && !fmt->spaces) 
+		if ((fmt->plus && !fmt->spaces)
 			|| (fmt->spaces && fmt->plus))
 			count += printchar('+');
 		ft_putnbr(n);
 	}
 	else
 		ft_putnbr(n);
-	return(count);
+	return (count);
 }
 
 int	printdecimal(t_format *fmt, int x)

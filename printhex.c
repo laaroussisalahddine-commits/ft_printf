@@ -6,7 +6,7 @@
 /*   By: slaarous <slaarous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/28 17:36:06 by slaarous          #+#    #+#             */
-/*   Updated: 2026/11/18 16:10:22 by slaarous         ###   ########.fr       */
+/*   Updated: 2026/11/19 16:45:26 by slaarous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int	printhex(t_format *fmt, unsigned int x, int upper)
 {
 	int				count;
 	unsigned long	n;
+
 	n = x;
 	count = lennumhex(n);
 	if (fmt->hash)

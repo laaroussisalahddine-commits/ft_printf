@@ -6,7 +6,7 @@
 /*   By: slaarous <slaarous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/28 18:42:17 by slaarous          #+#    #+#             */
-/*   Updated: 2026/11/18 16:10:43 by slaarous         ###   ########.fr       */
+/*   Updated: 2026/11/19 16:44:37 by slaarous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,10 @@ int	print_format(va_list args, t_format *fmt)
 
 int	ft_printf(const char *str, ...)
 {
-	va_list	args;
-	t_format fmt;
-	int	count;
-	int	i;
+	va_list		args;
+	t_format	fmt;
+	int			count;
+	int			i;
 
 	if (!str || (str[0] == '%' && str[1] == '\0'))
 		return (-1);
