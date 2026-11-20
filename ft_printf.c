@@ -6,7 +6,7 @@
 /*   By: slaarous <slaarous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/28 18:42:17 by slaarous          #+#    #+#             */
-/*   Updated: 2026/11/19 16:44:37 by slaarous         ###   ########.fr       */
+/*   Updated: 2026/11/20 15:39:28 by slaarous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	ft_printf(const char *str, ...)
 	int			count;
 	int			i;
 
-	if (!str || (str[0] == '%' && str[1] == '\0'))
+	if (!str)
 		return (-1);
 	va_start(args, str);
 	i = 0;

@@ -6,7 +6,7 @@
 /*   By: slaarous <slaarous@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/10/28 17:25:52 by slaarous          #+#    #+#             */
-/*   Updated: 2026/11/18 16:07:19 by slaarous         ###   ########.fr       */
+/*   Updated: 2026/11/20 15:18:56 by slaarous         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,7 @@ int	printptr(void *ptr)
 	a = (long)ptr;
 	count = lennumhex(a);
 	if (!ptr)
-	{
-		printstring("(nil)");
-		return (5);
-	}
+		return (printstring("(nil)"));
 	count += printstring("0x");
 	print_lower_hex(a);
 	return (count);
